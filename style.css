@@ -1,0 +1,218 @@
+:root {
+  --bgcolor: #00081d;
+  --border-color: rgba(255, 255, 255, 0.4);
+  --form-bg: rgb(253, 253, 253) (129, 129, 129, 0.1);
+  --form-radius: 10px;
+  --form-border: 3px solid var(--border-color);
+}
+
+* {
+  padding: 0px;
+  margin: 0px;
+  color: whitesmoke;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: 'Fira Sans', sans-serif;
+
+ 
+  color: whitesmoke;
+}
+header{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  padding: 25px;
+  background-color: rgba(0, 0, 0, 0.5);
+  
+}
+
+body {
+  position: relative;
+  margin-top: 18px; /* REMOVE */
+  background-color: var(--bgcolor);
+  background-image: url('assets/bgs.gif');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  min-height: 100vh;
+  height: auto; /* ADD */
+  overflow-y: auto; /* ADD */
+}
+
+.content-container {
+  padding: 8px;
+  width: 900px;
+  min-height: 800px;
+  margin-top: 70px; /* ADD to avoid header overlap */
+  height: auto;
+  position: relative; /* REMOVE fixed */
+}
+
+.contentwowowowow {
+  width: 100%;
+  height: auto;
+  position: relative; /* REMOVE fixed */
+  z-index: 1;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('./assets/sstem.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: 8;
+  z-index: 0;
+  opacity: .35;
+  border-radius: 10px;
+ 
+}
+
+
+.task-list {
+  list-style-type: none;
+  font-size: 24px;
+  padding: 0 20px;
+  margin: 50px;
+  width: 100%;
+  margin-left: 130px;
+}
+
+.task-list li {
+  max-width: 545px;
+  word-wrap: break-word;       
+  overflow-wrap: break-word;   
+  white-space: normal;      
+
+
+  padding: 10px;
+  margin-bottom: 10px;
+  background: var(--form-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--form-radius);
+}
+
+.sorts{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  width: 70%;
+  margin-left: 100px;
+
+}
+.sorts label{
+  margin: 20px;
+  margin-top: 30px;
+}
+
+input[type="text"],
+select {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: var(--form-radius);
+  padding: 8px;
+  font-size: 16px;
+  width: 70%;
+  color: whitesmoke;
+  color-scheme: dark;
+}
+
+button {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: var(--form-radius);
+  padding: 8px 12px;
+  color: whitesmoke;
+  cursor: pointer;
+}
+
+button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.task-form,
+form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.task-panel {
+  width: 70%;
+  margin-left:100px ;
+  margin-top: 10px;
+  padding: 15px;
+  background: var(--form-bg);
+  border-radius: var(--form-radius);
+  border: 1px solid var(--border-color);
+  width: 70%;
+}
+
+.addnew {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 70%;
+  padding: 0 20px;
+  gap: 150px;
+  font-weight: bold;
+  
+}
+
+.addnew h1 {
+  margin: 50px;
+  font-size: 32px;
+  margin-left: 100px;
+  margin-bottom: 50px;
+
+}
+
+.addnew button {
+ 
+  background-color: rgb(255, 255, 255);
+  color:cornflowerblue;
+  font-weight: bold;
+  opacity: 0.9;
+  font-size: 28px;
+  padding-top: 10px 20px;
+  border-radius: 45px;
+}
+
+.addnew button:hover {
+ padding-top: 10px 20px;
+  background-color: cornflowerblue;
+  color: rgb(255, 255, 255);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  opacity: 1;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+}

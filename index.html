@@ -1,0 +1,137 @@
+<?php
+require 'db.php';
+?>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple To-Do List</title>
+  <link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+
+  <script>
+    async function addTask(event) {
+      event.preventDefault();
+      const form = event.target;
+      const formData = new FormData(form);
+      const response = await fetch('create.php', {
+        method: 'POST',
+        body: formData
+      });
+      if (response.ok) {
+        form.reset();
+        loadTasks();
+        document.querySelector('.task-panel').style.display = 'none';
+      }
+    }
+    function cancelAddTask() {
+  document.querySelector('.task-panel').style.display = 'none';
+  document.querySelector('.task-panel form').reset();
+}
+
+
+    async function deleteTask(id) {
+      await fetch(`delete.php?id=${id}`);
+      loadTasks();
+    }
+
+    async function updateTask(event, id) {
+      event.preventDefault();
+      const formData = new FormData(event.target);
+      formData.append('id', id);
+      await fetch('update.php', {
+        method: 'POST',
+        body: formData
+      });
+      loadTasks();
+    }
+
+    async function loadTasks() {
+      const response = await fetch('tasks.php');
+      const html = await response.text();
+      document.getElementById('task-list').innerHTML = html;
+      document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+        checkbox.addEventListener('change', function () {
+          const li = this.closest('li');
+          if (this.checked) {
+            li.classList.add('crossed');
+          } else {
+            li.classList.remove('crossed');
+          }
+        });
+      });
+    }
+
+    function showAddPanel() {
+      const panel = document.querySelector('.task-panel');
+      panel.style.display = 'block';
+      panel.querySelector('input[name="task"]').focus();
+    }
+
+    document.addEventListener('DOMContentLoaded', loadTasks);
+
+  function toggleDone(id, checked) {
+  const formData = new FormData();
+  formData.append('id', id);
+  formData.append('done', checked ? 1 : 0);
+  fetch('update.php', { method: 'POST', body: formData }).then(loadTasks);
+}
+
+function applyFilter() {
+  const sort = document.getElementById('sort-select').value;
+  const filter = document.getElementById('filter-select').value;
+  let url = `tasks.php?sort=${sort}`;
+  if (filter) url += `&filter=${filter}`;
+  fetch(url).then(res => res.text()).then(html => {
+    document.getElementById('task-list').innerHTML = html;
+  });
+}
+  </script>
+</head>
+<header>
+  <h1>MCO: Simple To-Do List</h1>
+ 
+  </header>
+
+<body>
+  <div class="content-container">
+    <div class="background-image"></div>
+    <div class="contentwowowowow">
+      <div class="addnew">
+        <h1>To-Do List</h1>
+      <button onclick="showAddPanel()"> NEW </button>
+      </div>
+      <div class="task-panel" style="display:none;">
+        <form onsubmit="addTask(event)" class="task-form">
+          <input type="text" name="task" placeholder="Enter new task" required>
+          <button type="submit">Add Task</button>
+          <button onclick="cancelAddTask()"> cancel </button>
+        </form>
+      </div>
+      <div class="sorts">
+  <label>Sort by:</label>
+  <select  id="sort-select" onchange="applyFilter()">
+    <option value="date_asc">Date (Oldest)</option>
+    <option value="date_desc">Date (Newest)</option>
+    <option value="status">Status</option>
+  </select>
+  <label>Show:</label>
+  <select id="filter-select" onchange="applyFilter()">
+    <option value="">All</option>
+    <option value="undone">Only Undone</option>
+  </select>
+</div>
+
+      <ul id="task-list" class="task-list"></ul>
+    </div>
+  </div>
+</body>
+<footer>
+  <div class="footer">
+    <p> &copy; Riza Mary M. Caay 
+     BSCS 3-C 
+   2025 </p>
+</footer>
+</html>
